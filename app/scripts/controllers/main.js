@@ -30,4 +30,24 @@
  	}
 
  	];
-});
+
+ 	 $scope.blocks = [
+	{
+ 		title:'Buena alimentación',
+ 		image:baseURL+'city/'
+ 	},
+ 		
+ 	{
+ 		title:'Buena alimentación',
+ 		image:baseURL+'business/'
+ 	},
+ 	
+ 	{
+ 		title:'En contacto con la naturaleza',
+ 		image:baseURL+'fashion/'
+ 	}
+
+ 	];
+
+
+ });

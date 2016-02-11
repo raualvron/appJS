@@ -1,13 +1,24 @@
-<div class="row" ng-controller="MainCtrl">
+<div class="row">
   <div class="col-md-12">
     <uib-carousel interval="myInterval" no-wrap="noWrapSlides">
       <uib-slide ng-repeat="slide in slides" active="slide.active" index="slide.id">
         <img ng-src="{{slide.image}}" style="margin:auto;">
         <div class="carousel-caption">
-          <h4>Slide {{slide.id}}</h4>
+          <h4>{{slide.title}}</h4>
           <p>{{slide.text}}</p>
         </div>
       </uib-slide>
     </uib-carousel>
+  </div>
+</div>
+
+<div class="row ">
+  <div class="col-md-12">
+    <div ng-repeat="block in blocks">
+      <div class="col-md-4 div-block">
+        <img class="img-responsive img-circle img-block" ng-src="{{block.image}}" style="margin:auto;">
+        <h4>{{block.title}}</h4>
+      </div>
+    </div>
   </div>
 </div>

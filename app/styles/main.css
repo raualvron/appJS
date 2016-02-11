@@ -9,7 +9,7 @@ body {
   padding: 0;
 }
 
-/* Everything but the jumbotron gets side spacing for mobile first views */
+/* Everything but the julorembotron gets side spacing for mobile first views */
 .header,
 .marketing,
 .footer {
@@ -30,6 +30,11 @@ body {
   padding-bottom: 19px;
 }
 
+.item.text-center.ng-scope.ng-isolate-scope img.ng-scope {
+  width: 100%;
+  height: 550px;
+}
+
 .navbar {
     margin-bottom: 0px !important;
 }
@@ -39,6 +44,16 @@ body {
   padding-top: 19px;
   color: #777;
   border-top: 1px solid #e5e5e5;
+}
+
+.div-block {
+  text-align: center;
+  margin-top: 2%;
+}
+
+.img-block {
+    width: 204px;
+    height: 151px;
 }
 
 .container-narrow > hr {

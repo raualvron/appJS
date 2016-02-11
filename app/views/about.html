@@ -1,0 +1,35 @@
+<div class="row ">
+	<div class="col-md-12">
+	<div ng-repeat="product in products">
+		<div class="col-md-4 div-block">
+			<img class="img-responsive img-circle img-block" ng-src="{{product.img}}" style="margin:auto;">
+			<h4>{{product.title}}</h4>
+			<p>{{product.content | currency}}</p>
+			<div ng-value="rateStar = calculateAverage($index)"><uib-rating ng-model="rateStar" max="max" readonly="true" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></uib-rating></div>
+			<br/>
+
+			<button ng-click="showComment = ! showComment">{{product.button}}</button>
+			<h4> All comment </h4>
+			<div class="col-md-12" ng-repeat="comment in product.comments" >
+				<div class="col-md-12" style="background-color: #d3d3d3; margin-top: 2%; margin-bottom: 2%">	
+					<div class="col-md-12"><b>Name</b>: {{comment.name}}</div>
+					<div class="col-md-12"><b>Comment</b>: {{comment.text}}</div>
+					<div class="col-md-12" style="margin-bottom: 2%;" ng-init="x = comment.star"><uib-rating ng-model="x" readonly="true" max="10" aria-labelledby="default-rating"></uib-rating></div>
+				</div>
+			</div>
+			<div class="col-md-12">
+				<div ng-show="showComment" class="col-md-12" style="background-color: #e8e8e8;">
+					<form ng-submit="addComment(formData, $index);" class="css-form">
+						<h4>You comment</h4>
+						<div class="col-md-12"><b>Name</b>: {{formData.username}}</div>
+						<div class="col-md-12"><b>Comment</b>: {{formData.comment}}</div>
+						<div class="col-md-12">Name</b>:<br/><input type="text" ng-model="formData.username" required /><br /></div>
+						<div class="col-md-12">Comment</b>:<br/><textarea ng-model="formData.comment" /></textarea></div>
+						<uib-rating ng-model="formData.rate" max="10" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></uib-rating>
+						<div class="col-md-12" style="margin-bottom: 2%;"><input type="submit" value="Save" /></div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
