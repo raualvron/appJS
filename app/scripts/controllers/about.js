@@ -19,12 +19,12 @@
     // All data in $scope
     $scope.products = $firebaseArray(myFirebaseRef);
 
-    $scope.addComment = function (formData, $index) {
-        
+    $scope.addComment = function ($index, $comment) {
+
         $scope.array = {name: formData.username , text: formData.comment , star: formData.rate};
         
         var childC = myFirebaseRef.child("/" + $index + "/comments/");
-    
+
         childC.push($scope.array);
 
         formData.comment = '';
@@ -34,30 +34,44 @@
     };
 
 
-    
-    $scope.calculateAverage = function($index){ 
-        
-        var sum  = 0;
-        var total = 0;
-        
-        console.log(total);
+    $scope.deleteComment = function ($index, $comment) {
+
         var ruteComment = myFirebaseRef.child("/" + $index + "/comments/");
 
-        ruteComment.once("value", function(ObjComment) {
-            total = ObjComment.numChildren();
+        ruteComment.once("value", function(snapshot) {
+            var a = snapshot.numChildren();
+            console.log(a);
         });
 
-        for (var i = 0; i < total; i++) {
-            var ruteStar = ruteComment.child(i + "/star/");
-            ruteStar.once("value", function(ObjStar) {
-                sum = sum + ObjStar.val();
-            });
-        };
+    };
 
-       var wround = sum/total;
-       var round = Math.round(wround);
-       return round;
 
-   };
+    $scope.calculateAverage = function($index){ 
+
+    var sum  = 0;
+    var total = 0;
+
+    var ruteComment = myFirebaseRef.child("/" + $index + "/comments/");
+
+    ruteComment.once("value", function(ObjComment) {
+        total = ObjComment.numChildren();
+    });
+
+    ruteComment.once("value", function(snapshot) {
+        snapshot.forEach(function(snapshot) {
+         snapshot.forEach(function(childSnapshot) {
+            var key = childSnapshot.key();
+            if (key == 'star') {
+                sum += childSnapshot.val();
+            }
+        });
+     });
+    });
+
+    var wround = sum/total;
+    var round = Math.round(wround);
+    return round;
+
+};
 
 });
