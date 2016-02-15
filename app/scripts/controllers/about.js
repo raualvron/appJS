@@ -19,7 +19,7 @@
     // All data in $scope
     $scope.products = $firebaseArray(myFirebaseRef);
 
-    $scope.addComment = function ($index, $comment) {
+    $scope.addComment = function (formData, $index) {
 
         $scope.array = {name: formData.username , text: formData.comment , star: formData.rate};
         
@@ -34,44 +34,48 @@
     };
 
 
-    $scope.deleteComment = function ($index, $comment) {
+    $scope.deleteComment = function (comment, $product) {
 
-        var ruteComment = myFirebaseRef.child("/" + $index + "/comments/");
-
+        var ruteComment = myFirebaseRef.child("/" + $product + "/comments/");
         ruteComment.once("value", function(snapshot) {
-            var a = snapshot.numChildren();
-            console.log(a);
-        });
-
+           snapshot.forEach(function(snapshot2) {
+            if(angular.equals(snapshot2.val(),comment)){
+               var ruteDelete = myFirebaseRef.child("/" + $product + "/comments/" + snapshot2.key());
+                    ruteDelete.remove();
+            }
+         });
+       });
     };
+
 
 
     $scope.calculateAverage = function($index){ 
 
-    var sum  = 0;
-    var total = 0;
+        var sum  = 0;
+        var total = 0;
 
-    var ruteComment = myFirebaseRef.child("/" + $index + "/comments/");
 
-    ruteComment.once("value", function(ObjComment) {
-        total = ObjComment.numChildren();
-    });
+        var ruteComment = myFirebaseRef.child("/" + $index + "/comments/");
 
-    ruteComment.once("value", function(snapshot) {
-        snapshot.forEach(function(snapshot) {
-         snapshot.forEach(function(childSnapshot) {
-            var key = childSnapshot.key();
-            if (key == 'star') {
-                sum += childSnapshot.val();
-            }
+        ruteComment.once("value", function(ObjComment) {
+            total = ObjComment.numChildren();
         });
-     });
-    });
 
-    var wround = sum/total;
-    var round = Math.round(wround);
-    return round;
+        ruteComment.once("value", function(snapshot) {
+            snapshot.forEach(function(snapshot) {
+               snapshot.forEach(function(childSnapshot) {
+                var key = childSnapshot.key();
+                if (key == 'star') {
+                    sum += childSnapshot.val();
+                }
+            });
+           });
+        });
 
-};
+        var wround = sum/total;
+        var round = Math.round(wround);
+        return round;
+
+    };
 
 });

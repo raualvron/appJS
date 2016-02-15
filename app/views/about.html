@@ -13,7 +13,7 @@
 				<div class="col-md-12" ng-repeat="comment in product.comments">
 					<div class="col-md-12" style="background-color: #d3d3d3; margin-top: 2%; margin-bottom: 2%">
 						<div class="col-md-1">
-						<div style="width: 2%; height: 2%" ng-click="deleteComment($index)" class="btn btn-warning">X</div>
+						<div style="width: 2%; height: 2%" ng-click="deleteComment(comment, product.$id)" class="btn btn-warning">X</div>
 						</div>
 					<div class="col-md-11">
 						<div class="col-md-12"><b>Name</b>: {{comment.name}}</div>
